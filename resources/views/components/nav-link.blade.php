@@ -1,1 +1,1 @@
-<a {{$attributes(['class' => 'text-white hover:underline cursor-pointer'])}}>{{ $slot }}</a>
+<a {{$attributes(['class' => 'text-white hover:text-gray-400 transition-colors duration-150 cursor-pointer'])}}>{{ $slot }}</a>

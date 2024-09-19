@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Comment::class)->nullable(); // TODO: see if this works
-            $table->string('body');
+            $table->text('body');
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Post::class);
             $table->timestamps();

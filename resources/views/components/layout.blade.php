@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"> --}}
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-[#070A0D] text-white pb-20">
-    <div class="px-10">
-        <nav class="flex justify-between items-center py-4 border-b border-white/10">
+<body class="bg-[#0D1117] text-white pb-20">
+    <div class="">
+        <nav class="bg-[#161B22] flex justify-between items-center py-4 px-10">
             
             <div class="flex space-x-6 items-center">
                 <div class="flex space-x-1 items-center">
@@ -39,13 +39,13 @@
 
             @guest
                 <div class="space-x-6">
-                    <x-nav-link href="/register">Register</x-nav-link>
                     <x-nav-link href="/login">Log In</x-nav-link>
+                    <x-nav-link href="/register">Register</x-nav-link>
                 </div>
             @endguest
         </nav>
 
-        <main class="mt-10 max-w-[986px] m-auto">
+        <main class="mt-10 max-w-5xl m-auto">
             {{ $slot }}
         </main>
     </div>
