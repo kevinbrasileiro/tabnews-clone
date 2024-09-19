@@ -20,6 +20,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->name(),
             'body' => fake()->paragraph(),
+            'relevance' => fake()->numberBetween(1, 100),
             'user_id' => User::factory(),
         ];
     }
