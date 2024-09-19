@@ -20,6 +20,15 @@ class PostController extends Controller
         ]);
     }
 
+    public function recent()
+    {
+        $posts = Post::query()->latest()->simplePaginate(30);
+
+        return view('posts.index', [
+            'posts' => $posts,
+        ]); 
+    }
+
     /**
      * Show the form for creating a new resource.
      */

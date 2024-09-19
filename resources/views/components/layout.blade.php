@@ -21,13 +21,13 @@
                     </a>
                     <x-nav-link href="/">TabNews</x-nav-link>
                 </div>
-                <x-nav-link href="/">Top</x-nav-link>
-                <x-nav-link href="/recent">Recent</x-nav-link>   
+                <x-nav-link href="/" :active="request()->is('/')">Popular</x-nav-link>
+                <x-nav-link href="/recent" :active="request()->is('recent')">Recent</x-nav-link>   
             </div>
 
             @auth
                 <div class="flex space-x-6">
-                    <x-nav-link href="/posts/create">Recent</x-nav-link>
+                    <x-nav-link href="/posts/create">Create Post</x-nav-link>
 
                     <form method="POST" action="/logout">
                         @csrf
