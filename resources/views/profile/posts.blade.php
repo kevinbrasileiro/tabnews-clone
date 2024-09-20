@@ -1,9 +1,7 @@
 <x-layout>
     <h1 class="font-bold text-4xl mb-8">{{$user->username}}</h1>
     <div class="flex space-x-6 border-b border-white/20 mb-6">
-        <x-nav-link href="/users/{{$user->username}}">Profile</x-nav-link>
-        <x-nav-link href="/users/{{$user->username}}/posts">Posts</x-nav-link>
-        <x-nav-link href="/users/{{$user->username}}/comments">Comments</x-nav-link>
+        <x-userinfo-nav :user="$user"/>
     </div>
     <div class="space-y-6">
         <ol class="space-y-4" type="1" start="{{ ($posts->currentPage() - 1) * $posts->perPage() + 1}}">
