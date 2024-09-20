@@ -1,6 +1,6 @@
 <x-layout>
     <div class="space-y-6">
-        <ol class="space-y-4" type="1" start="{{ ($posts->currentPage() - 1) * 30 + 1}}">
+        <ol class="space-y-4" type="1" start="{{ ($posts->currentPage() - 1) * $posts->count() + 1}}">
             @foreach ($posts as $post)
                 <li class="list-decimal">
                     <a href="/posts/{{$post->id}}" class="hover:underline">{{$post->title}}</a>

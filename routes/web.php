@@ -6,11 +6,16 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index']);
-Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/recent', [PostController::class, 'recent']);
 
-// Route::get('/posts/create', [PostController::class, 'create']);
-// Route::post('/posts', [PostController::class, 'store']);
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');;
+Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
+
+Route::get('/posts/{post}', [PostController::class, 'show']);
+
+//  Route::get('/{user}');
+//  Route::get('/{user}/posts');
+//  Route::get('/{user}/comments');
 
 Route::middleware('guest')->group(function() {
     Route::get('/register', [RegisteredUserController::class, 'create']);

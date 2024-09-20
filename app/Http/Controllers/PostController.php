@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -13,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::query()->orderBy('relevance', 'desc')->simplePaginate(30);
+        $posts = Post::with('user')->orderBy('relevance', 'desc')->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -22,7 +23,7 @@ class PostController extends Controller
 
     public function recent()
     {
-        $posts = Post::query()->latest()->simplePaginate(30);
+        $posts = Post::with('user')->latest()->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -34,7 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -42,7 +43,19 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:100|max:65535'
+        ]);
+
+        Post::create([
+            'title' => request('title'),
+            'body' => request('body'),
+            'relevance' => rand(0, 100), // TODO: figure out how to do this
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect('/recent');
     }
 
     /**
