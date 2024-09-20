@@ -13,7 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(20)->create();
+        User::factory()->create([
+            'username' => 'josefoguetes',
+            'email' => 'josefoguetes@example.com',
+            'password' => 'josefoguetes',
+        ]);
 
         $this->call(PostSeeder::class);
         $this->call(CommentSeeder::class);
