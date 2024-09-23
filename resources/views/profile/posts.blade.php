@@ -1,5 +1,5 @@
 <x-layout>
-    <h1 class="font-bold text-4xl mb-8">{{$user->username}}</h1>
+    <x-page-header>{{ $user->username }}</x-page-header>
     <div class="flex space-x-6 border-b border-white/20 mb-6">
         <x-userinfo-nav :user="$user"/>
     </div>

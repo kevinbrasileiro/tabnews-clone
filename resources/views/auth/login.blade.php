@@ -1,6 +1,6 @@
 <x-layout>
     <x-forms.form method="POST" action="/login" class="max-w-lg">
-        <h1 class="font-bold text-4xl mb-8">Login</h1>
+        <x-page-header>Login</x-page-header>
         <x-forms.input label="Email" name="email" type="email" />
         <x-forms.input label="Password" name="password" type="password" />
 

@@ -1,6 +1,5 @@
 <x-layout>
-    <div>
-        <p>{{$post->title}}</p>
+    <x-page-header>{{ $post->title }}</x-page-header>
         <br>
         <p>{{$post->body}}</p>
     </div>
