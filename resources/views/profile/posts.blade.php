@@ -13,6 +13,11 @@
                     </div>
                 </li>
             @endforeach
+
+            @if (!$posts->count())
+                This account does not have any posts.
+            @endif
+            
         </ol>
         {{ $posts->links() }}
     </div>
