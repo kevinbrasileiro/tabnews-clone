@@ -23,25 +23,31 @@
                 </form>
             </div>
         </div>
-        <div>
+        <div class="space-y-1">
             <div class="flex space-x-2 items-center">
                 <a href="/users/{{ $post->user->username }}" class="text-sm text-blue-500 bg-blue-900/20 rounded-lg px-1 py-0.5 hover:underline ">{{$post->user->username}}</a>
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
             </div>
-            <x-page-header>{{ $post->title }}</x-page-header>
-            <div class="">
-                {{ $post->body }}
+            <div>
+                <x-page-header>{{ $post->title }}</x-page-header>
+                <div>
+                    {{ $post->body }}
+                </div>
             </div>
         </div>
     </div>
 
-    <div>
+    <div class="space-y-6">
         <div class="border border-gray-700 rounded-lg px-6 py-4">
-            <button class="hover:text-gray-400 transition-colors duration-150 cursor-pointer">Reply</button>
+            <x-forms.form method="POST" action="/comments">
+                <x-forms.textarea label="" name="body"/>
+            
+                <x-forms.button>Reply</x-forms.button>
+            </x-forms.form>
         </div>
 
         @foreach ($comments as $comment)
-            <p>{{ $comment->body }}</p>
+            <x-comment :comment="$comment"/>
         @endforeach
 
     </div>

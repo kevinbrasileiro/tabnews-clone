@@ -10,5 +10,5 @@
 @endphp
 
 <x-forms.field :$label :$name>
-    <textarea rows="20" {{ $attributes($defaults) }}>{{old($name)}}</textarea>
+    <textarea {{ $attributes($defaults) }}>{{old($name)}}</textarea>
 </x-forms.field>
