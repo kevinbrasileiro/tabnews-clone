@@ -63,8 +63,12 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $likesAmount = 0;
+
         return view('posts.show', [
             'post' => $post,
+            'comments' => $post->comment,
+            'likes' => $likesAmount,
         ]);
     }
 

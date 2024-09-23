@@ -26,6 +26,10 @@ class UserInfoController extends Controller
     }
 
     public function comments(User $user) {
-
+        
+        return view('profile.comments', [
+            'user' => $user,
+            'comments' => $user->comment,
+        ]);
     }
 }

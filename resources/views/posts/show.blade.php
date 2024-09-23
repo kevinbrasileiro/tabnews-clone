@@ -11,7 +11,7 @@
                 </form>
             </div>
             <div class="text-sm text-blue-500">
-                15
+                {{ $likes }}
             </div>
             <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300" title="I disliked this post">
                 {{-- TODO: --}}
@@ -39,5 +39,10 @@
         <div class="border border-gray-700 rounded-lg px-6 py-4">
             <button class="hover:text-gray-400 transition-colors duration-150 cursor-pointer">Reply</button>
         </div>
+
+        @foreach ($comments as $comment)
+            <p>{{ $comment->body }}</p>
+        @endforeach
+
     </div>
 </x-layout>
