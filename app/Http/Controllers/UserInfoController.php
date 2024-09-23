@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,10 +27,12 @@ class UserInfoController extends Controller
     }
 
     public function comments(User $user) {
-        
+
+        $comments = Comment::with('user', 'post')->where('user_id', $user->id)->latest()->simplePaginate(30);
+
         return view('profile.comments', [
             'user' => $user,
-            'comments' => $user->comment,
+            'comments' => $comments,
         ]);
     }
 }

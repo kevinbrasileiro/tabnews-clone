@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,11 +64,12 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $comments = Comment::with('user')->where('post_id', $post->id)->latest()->simplePaginate(30);
         $likesAmount = 0;
 
         return view('posts.show', [
             'post' => $post,
-            'comments' => $post->comment,
+            'comments' => $comments,
             'likes' => $likesAmount,
         ]);
     }

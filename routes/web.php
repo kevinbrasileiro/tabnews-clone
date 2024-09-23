@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
@@ -9,8 +10,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index']);
 Route::get('/recent', [PostController::class, 'recent']);
 
-Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');;
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
+
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
 
 Route::get('/posts/{post:title}', [PostController::class, 'show']);
 
