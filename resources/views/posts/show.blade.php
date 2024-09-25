@@ -37,6 +37,7 @@
         </div>
     </div>
 
+    
     <div class="space-y-6">
         <div class="border border-gray-700 rounded-lg px-6 py-4">
             <x-forms.form method="POST" action="/comments">
@@ -48,7 +49,7 @@
         </div>
 
         @foreach ($comments as $comment)
-            <x-comment :comment="$comment"/>
+            <x-comment :comment="$comment" :post="$post"/>
         @endforeach
 
     </div>

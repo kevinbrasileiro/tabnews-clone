@@ -21,7 +21,22 @@ class CommentController extends Controller
 
         Comment::create([
             'body' => request('body'),
-            'comment_id' => null,
+            'user_id' => Auth::id(),
+            'post_id' => request('post')
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function storeReply(StoreCommentRequest $request)
+    {
+        $request->validate([
+            'body' => 'required|max:65535'
+        ]);
+
+        Comment::create([
+            'body' => request('body'),
+            'comment_id' => request('comment'),
             'user_id' => Auth::id(),
             'post_id' => request('post')
         ]);

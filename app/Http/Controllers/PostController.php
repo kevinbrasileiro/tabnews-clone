@@ -64,12 +64,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = Comment::with('user')->where('post_id', $post->id)->latest()->simplePaginate(30);
         $likesAmount = 0;
 
         return view('posts.show', [
             'post' => $post,
-            'comments' => $comments,
+            'comments' => $post->comments,
             'likes' => $likesAmount,
         ]);
     }

@@ -19,8 +19,6 @@ class DatabaseSeeder extends Seeder
             'password' => 'josefoguetes',
         ]);
 
-        $this->call(PostSeeder::class);
         $this->call(CommentSeeder::class);
-        $this->call(TagSeeder::class);
     }
 }

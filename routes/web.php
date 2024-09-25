@@ -14,6 +14,7 @@ Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 
 Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
+Route::post('/comments/reply', [CommentController::class, 'storeReply'])->middleware('auth');
 
 Route::get('/posts/{post:title}', [PostController::class, 'show']);
 
@@ -25,7 +26,7 @@ Route::middleware('guest')->group(function() {
     Route::get('/register', [RegisteredUserController::class, 'create']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
     
-    Route::get('/login', [SessionController::class, 'create']);
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
 });
 
