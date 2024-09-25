@@ -7,9 +7,16 @@
         <ol class="space-y-4" type="1" start="{{ ($comments->currentPage() - 1) * $comments->perPage() + 1}}">
             @foreach ($comments as $comment)
                 <li class="list-decimal">
-                    <a href="/posts/{{$comment->post->title}}" class="hover:underline">{{$comment->body}}</a>
+                    <a href="/posts/{{$comment->post->title}}" class="hover:underline flex gap-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
+                        {{$comment->body}}
+                    </a>
                     <div class="flex space-x-2">
                         <a href="/users/{{$comment->user->username}}" class="text-sm text-gray-500 hover:underline">{{$comment->user->username}}</a>
+                        <span class="text-sm text-gray-500">/</span>
+                        <p class="text-sm text-gray-500">{{$comment->replies->count()}} comments</p>
+                        <span class="text-sm text-gray-500">/</span>
+                        <p class="text-sm text-gray-500">{{$comment->created_at->diffForHumans()}}</p>
                     </div>
                 </li>
             @endforeach
