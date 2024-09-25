@@ -9,17 +9,15 @@
         {{ $comment->body }}
     </div>
     <div class="space-y-6">
-        @auth
-            <div class="border border-gray-700 rounded-lg px-6 py-4">
-                <x-forms.form method="POST" action="/comments/reply">
-                    <x-forms.input label="" name="post" type="hidden" value="{{$post->id}}"/>
-                    <x-forms.input label="" name="comment" type="hidden" value="{{$comment->id}}"/>
-                    <x-forms.textarea label="" name="body"/>
-                
-                    <x-forms.button>Reply</x-forms.button>
-                </x-forms.form>
-            </div>
-        @endauth
+        <div class="border border-gray-700 rounded-lg px-6 py-4">
+            <x-forms.form method="POST" action="/comments/reply">
+                <x-forms.input label="" name="post" type="hidden" value="{{$post->id}}"/>
+                <x-forms.input label="" name="comment" type="hidden" value="{{$comment->id}}"/>
+                <x-forms.textarea label="" name="body"/>
+            
+                <x-forms.button>Reply</x-forms.button>
+            </x-forms.form>
+        </div>
 
         @if ($comment->replies->count())
             @foreach ($comment->replies as $comment)

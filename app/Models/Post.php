@@ -20,4 +20,8 @@ class Post extends Model
     public function comments(): HasMany {
         return $this->hasMany(Comment::class)->whereNull('comment_id');
     }
+
+    public function allComments(): HasMany {
+        return $this->hasMany(Comment::class);
+    }
 }
