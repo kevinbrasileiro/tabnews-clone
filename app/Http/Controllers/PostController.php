@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Comment;
+use App\Models\LikePost;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->orderBy('relevance', 'desc')->simplePaginate(30);
+        $posts = Post::with('user')->withCount('comments')->orderBy('relevance', 'desc')->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -24,7 +25,7 @@ class PostController extends Controller
 
     public function recent()
     {
-        $posts = Post::with('user')->latest()->simplePaginate(30);
+        $posts = Post::with('user')->withCount('comments')->latest()->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -64,12 +65,16 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $likesAmount = 0;
+        $upVotes = LikePost::query()->where('type', '1')->where('post_id', $post->id)->count();
+        $downVotes = LikePost::query()->where('type', '-1')->where('post_id', $post->id)->count();
+
+        $userHasLiked = LikePost::where('user_id', Auth::id())->where('post_id', $post->id)->first();
 
         return view('posts.show', [
             'post' => $post,
             'comments' => $post->comments,
-            'likes' => $likesAmount,
+            'likes' => $upVotes - $downVotes,
+            'userHasLiked' => $userHasLiked->type ?? 0,
         ]);
     }
 

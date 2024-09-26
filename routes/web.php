@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikePostController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikesController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserInfoController;
@@ -17,10 +19,11 @@ Route::post('/comments', [CommentController::class, 'store'])->middleware('auth'
 Route::post('/comments/reply', [CommentController::class, 'storeReply'])->middleware('auth');
 
 Route::get('/posts/{post:title}', [PostController::class, 'show']);
+Route::post('/posts/{post:title}/vote', [LikePostController::class, 'store'])->middleware('auth');
 
- Route::get('/users/{user:username}', [UserInfoController::class, 'profile']);
- Route::get('/users/{user:username}/posts', [UserInfoController::class, 'posts']);
- Route::get('/users/{user:username}/comments', [UserInfoController::class, 'comments']);
+Route::get('/users/{user:username}', [UserInfoController::class, 'profile']);
+Route::get('/users/{user:username}/posts', [UserInfoController::class, 'posts']);
+Route::get('/users/{user:username}/comments', [UserInfoController::class, 'comments']);
 
 Route::middleware('guest')->group(function() {
     Route::get('/register', [RegisteredUserController::class, 'create']);

@@ -1,10 +1,11 @@
 <x-layout>
     <div class="flex space-x-3 mb-6">
         <div class="flex flex-col items-center space-y-3">
-            <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300" title="I liked this post">
-                {{-- TODO: --}}
-                <form method="POST" action="/" class="h-6">
+            <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300 {{$userHasLiked == '1' ? 'bg-gray-700' : ''}}" title="I liked this post">
+                <form method="POST" action="{{url()->current()}}/vote" class="h-6">
                     @csrf
+                    <input type="hidden" name="post" value="{{$post->id}}">
+                    <input type="hidden" name="type" value="1">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#6b7280"><path d="m280-400 200-200 200 200H280Z"/></svg>
                     </button>
@@ -13,10 +14,11 @@
             <div class="text-sm text-blue-500">
                 {{ $likes }}
             </div>
-            <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300" title="I disliked this post">
-                {{-- TODO: --}}
-                <form method="POST" action="/" class="h-6">
+            <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300 {{$userHasLiked == '-1' ? 'bg-gray-700' : ''}}" title="I disliked this post">
+                <form method="POST" action="{{url()->current()}}/vote" class="h-6">
                     @csrf
+                    <input type="hidden" name="post" value="{{$post->id}}">
+                    <input type="hidden" name="type" value="-1">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#6b7280"><path d="M480-360 280-560h400L480-360Z"/></svg>
                     </button>
