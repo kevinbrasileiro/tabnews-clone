@@ -50,11 +50,17 @@ class PostController extends Controller
             'body' => 'required|min:100|max:65535'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => request('title'),
             'body' => request('body'),
             'relevance' => rand(0, 100), // TODO: figure out how to do this
             'user_id' => Auth::id(),
+        ]);
+
+        LikePost::create([
+            'type' => 1,
+            'user_id' => Auth::id(),
+            'post_id' => $post->id,
         ]);
 
         return redirect('/recent');
