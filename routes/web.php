@@ -24,8 +24,8 @@ Route::get('/users/{user:username}', [UserInfoController::class, 'profile']);
 Route::get('/users/{user:username}/posts', [UserInfoController::class, 'posts']);
 Route::get('/users/{user:username}/comments', [UserInfoController::class, 'comments']);
 
-Route::get('/{user:username}/{post:title}', [PostController::class, 'show']);
-Route::post('/{user:username}/{post:title}', [LikePostController::class, 'store'])->middleware('auth');
+Route::get('/{user:username}/{post:slug}', [PostController::class, 'show']);
+Route::post('/{user:username}/{post:slug}', [LikePostController::class, 'store'])->middleware('auth');
 
 Route::middleware('guest')->group(function() {
     Route::get('/register', [RegisteredUserController::class, 'create']);

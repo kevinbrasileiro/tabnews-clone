@@ -9,8 +9,7 @@ use App\Models\LikePost;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Str;
 class PostController extends Controller
 {
     /**
@@ -46,14 +45,18 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StorePostRequest $request)
-    {
+    {        
+        $request->merge([
+            'title' => Str::slug(request('title')),
+        ]);
         $request->validate([
-            'title' => 'required|unique_custom:posts,title,user_id,' . Auth::id(),
-            'body' => 'required|min:100|max:65535'
+            'title' => 'required|unique_custom:posts,slug,user_id,' . Auth::id(),
+            'body' => 'required|min:1|max:65535'
         ]);
 
         $post = Post::create([
             'title' => request('title'),
+            'slug' => Str::slug(request('title')),
             'body' => request('body'),
             'relevance' => rand(0, 100), // TODO: figure out how to do this
             'user_id' => Auth::id(),

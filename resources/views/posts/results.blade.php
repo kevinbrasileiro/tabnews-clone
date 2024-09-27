@@ -7,7 +7,7 @@
             @endif
             @foreach ($posts as $post)
                 <li class="list-decimal">
-                    <a href="/posts/{{$post->title}}" class="hover:underline">{{$post->title}}</a>
+                    <a href="/{{$post->user->username}}/{{$post->slug}}" class="hover:underline">{{$post->title}}</a>
                     <div class="flex space-x-2">
                         <a href="/users/{{$post->user->username}}" class="text-sm text-gray-500 hover:underline">{{$post->user->username}}</a>
                         <span class="text-sm text-gray-500">/</span>

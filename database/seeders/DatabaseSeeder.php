@@ -19,6 +19,12 @@ class DatabaseSeeder extends Seeder
             'password' => 'josefoguetes',
         ]);
 
+        User::factory()->create([
+            'username' => 'joaomotores',
+            'email' => 'joaomotores@example.com',
+            'password' => 'joaomotores',
+        ]);
+
         $this->call(CommentSeeder::class);
     }
 }
