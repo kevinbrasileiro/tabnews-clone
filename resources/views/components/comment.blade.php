@@ -6,7 +6,7 @@
         <p class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
     </div>
     <div>
-        {{ $comment->body }}
+        {!! nl2br(htmlspecialchars($comment->body, ENT_QUOTES)) !!}
     </div>
     <div class="space-y-6">
         <x-forms.form method="POST" action="/comments/reply">

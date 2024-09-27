@@ -7,7 +7,9 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Comment;
 use App\Models\LikePost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -46,7 +48,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique_custom:posts,title,user_id,' . Auth::id(),
             'body' => 'required|min:100|max:65535'
         ]);
 
@@ -69,8 +71,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(User $user, Post $post)
     {
+
         $upVotes = LikePost::query()->where('type', '1')->where('post_id', $post->id)->count();
         $downVotes = LikePost::query()->where('type', '-1')->where('post_id', $post->id)->count();
 

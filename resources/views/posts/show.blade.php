@@ -2,7 +2,7 @@
     <div class="flex space-x-3 mb-6">
         <div class="flex flex-col items-center space-y-3">
             <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300 {{$userHasLiked == '1' ? 'bg-gray-700' : ''}}" title="I liked this post">
-                <form method="POST" action="{{url()->current()}}/vote" class="h-6">
+                <form method="POST" action="{{url()->current()}}" class="h-6">
                     @csrf
                     <input type="hidden" name="post" value="{{$post->id}}">
                     <input type="hidden" name="type" value="1">
@@ -15,7 +15,7 @@
                 {{ $likes }}
             </div>
             <div class="hover:bg-gray-700 rounded-md cursor-pointer transition-colors duration-300 {{$userHasLiked == '-1' ? 'bg-gray-700' : ''}}" title="I disliked this post">
-                <form method="POST" action="{{url()->current()}}/vote" class="h-6">
+                <form method="POST" action="{{url()->current()}}" class="h-6">
                     @csrf
                     <input type="hidden" name="post" value="{{$post->id}}">
                     <input type="hidden" name="type" value="-1">
@@ -32,8 +32,8 @@
             </div>
             <div>
                 <x-page-header>{{ $post->title }}</x-page-header>
-                <div>
-                    {{ $post->body }}
+                <div class="max-w-4xl break-words">
+                    {!! nl2br(htmlspecialchars($post->body, ENT_QUOTES)) !!}
                 </div>
             </div>
         </div>

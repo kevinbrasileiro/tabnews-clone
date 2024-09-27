@@ -20,12 +20,12 @@ Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
 Route::post('/comments/reply', [CommentController::class, 'storeReply'])->middleware('auth');
 
-Route::get('/posts/{post:title}', [PostController::class, 'show']);
-Route::post('/posts/{post:title}/vote', [LikePostController::class, 'store'])->middleware('auth');
-
 Route::get('/users/{user:username}', [UserInfoController::class, 'profile']);
 Route::get('/users/{user:username}/posts', [UserInfoController::class, 'posts']);
 Route::get('/users/{user:username}/comments', [UserInfoController::class, 'comments']);
+
+Route::get('/{user:username}/{post:title}', [PostController::class, 'show']);
+Route::post('/{user:username}/{post:title}', [LikePostController::class, 'store'])->middleware('auth');
 
 Route::middleware('guest')->group(function() {
     Route::get('/register', [RegisteredUserController::class, 'create']);

@@ -5,6 +5,11 @@
         <x-forms.input label="Email" name="email" type="email" />
         <x-forms.input label="Password" name="password" type="password" />
 
-        <x-forms.button>Register</x-forms.button>
+        <div class="space-x-2">
+            <x-forms.button>Register</x-forms.button>
+            <a href="/login" class="hover:underline">Already have an account?</a>
+        </div>
+
+        
     </x-forms.form>
 </x-layout>
