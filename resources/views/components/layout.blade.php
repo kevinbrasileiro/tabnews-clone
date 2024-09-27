@@ -41,7 +41,12 @@
             @endauth
 
             @guest
-                <div class="space-x-6">
+                <div class="flex items-center space-x-6">
+                    <div class="w-80">
+                        <x-forms.form action="/search">
+                            <x-forms.input type="text" name="query" :label="false" class="rounded-md bg-black border border-white/20 px-2 py-1 w-full placeholder:text-white/20" placeholder="Search" />
+                        </x-forms.form>
+                    </div>
                     <x-nav-link href="/login">Login</x-nav-link>
                     <x-nav-link href="/register">Register</x-nav-link>
                 </div>

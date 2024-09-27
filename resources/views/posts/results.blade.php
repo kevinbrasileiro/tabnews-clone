@@ -1,10 +1,10 @@
 <x-layout>
-    <x-page-header>{{ $user->username }}</x-page-header>
-    <div class="flex space-x-6 border-b border-white/20 mb-6">
-        <x-userinfo-nav :user="$user"/>
-    </div>
     <div class="space-y-6">
         <ol class="space-y-4" type="1" start="{{ ($posts->currentPage() - 1) * $posts->perPage() + 1}}">
+            <x-page-header>Displaying results for '{{$query}}' search</x-page-header>
+            @if (!$posts->count())
+            Could not find any posts matching search query.
+            @endif
             @foreach ($posts as $post)
                 <li class="list-decimal">
                     <a href="/posts/{{$post->title}}" class="hover:underline">{{$post->title}}</a>
@@ -17,11 +17,6 @@
                     </div>
                 </li>
             @endforeach
-
-            @if (!$posts->count())
-                This account does not have any posts.
-            @endif
-            
         </ol>
         {{ $posts->links() }}
     </div>
