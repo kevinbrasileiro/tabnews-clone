@@ -5,12 +5,14 @@ use App\Http\Controllers\LikePostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikesController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserInfoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/recent', [PostController::class, 'recent']);
+Route::get('/search', [SearchController::class, 'search']);
 
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');

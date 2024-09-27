@@ -9,7 +9,7 @@
 </head>
 <body class="bg-[#0D1117] text-white pb-20">
     <div class="">
-        <nav class="bg-[#161B22] flex justify-between items-center py-4 px-6">
+        <nav class="bg-[#161B22] flex justify-between items-center py-3 px-6">
             
             <div class="flex space-x-6 items-center">
                 <div class="flex space-x-1 items-center">
@@ -22,8 +22,14 @@
                 <x-nav-link href="/recent" :active="request()->is('recent')">Recent</x-nav-link>   
             </div>
 
+            
             @auth
-                <div class="flex space-x-6">
+            <div class="flex items-center space-x-6">
+                <div class="w-80">
+                    <x-forms.form action="/search">
+                        <x-forms.input type="text" name="query" :label="false" class="rounded-md bg-black border border-white/20 px-2 py-1 w-full placeholder:text-white/20" placeholder="Search" />
+                    </x-forms.form>
+                </div>
                     <x-nav-link href="/posts/create" title="Create new post">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                     </x-nav-link>

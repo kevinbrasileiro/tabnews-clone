@@ -10,9 +10,9 @@
     </div>
     <div class="space-y-6">
         <x-forms.form method="POST" action="/comments/reply">
-            <x-forms.input label="" name="post" type="hidden" value="{{$post->id}}"/>
-            <x-forms.input label="" name="comment" type="hidden" value="{{$comment->id}}"/>
-            <x-forms.textarea label="" name="body"/>
+            <x-forms.input :label="false" name="post" type="hidden" value="{{$post->id}}"/>
+            <x-forms.input :label="false" name="comment" type="hidden" value="{{$comment->id}}"/>
+            <x-forms.textarea :label="false" name="body"/>
         
             <x-forms.button>Reply</x-forms.button>
         </x-forms.form>
