@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\LikePost;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 class PostController extends Controller
@@ -93,24 +94,49 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(User $user, Post $post)
     {
-        //
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, User $user, Post $post)
     {
-        //
+        $request->merge([
+            'title' => Str::slug(request('title')),
+        ]);
+        $request->validate([
+            // 'title' => 'required|unique_custom:posts,slug,user_id,' . Auth::id(),
+            'body' => 'required|min:1|max:65535'
+        ]);
+
+        // if($post->created_at->addMinutes(60) < Carbon::now()) {
+        //     dd('time to edit exceeded');
+        // }
+
+        $post->update([
+            'title' => request('title'),
+            'slug' => Str::slug(request('title')),
+            'body' => request('body'),
+        ]);
+        
+        return redirect()->route('uniquePost', [
+            'user' => $post->user,
+            'post' => $post,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(User $user, Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/');
     }
 }
