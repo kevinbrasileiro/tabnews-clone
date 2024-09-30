@@ -39,7 +39,7 @@ Route::patch('/{user:username}/{post:slug}', [PostController::class, 'update'])
     ->can('update', 'post');
 Route::delete('/{user:username}/{post:slug}', [PostController::class, 'destroy'])
     ->middleware('auth')
-    ->can('update', 'post');
+    ->can('delete', 'post');
 
 // AUTH
 Route::middleware('guest')->group(function() {

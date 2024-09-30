@@ -38,7 +38,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $post->user->is($user) && $post->created_at->addMinutes(60) > Carbon::now();
+        return $post->user->is($user) && $post->created_at->addMinutes(1) > Carbon::now();
     }
 
     /**
@@ -46,7 +46,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        //
+        return $post->user->is($user);
     }
 
     /**
