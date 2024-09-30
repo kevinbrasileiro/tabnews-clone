@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Comment;
 use App\Models\LikePost;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 class PostController extends Controller
 {
     /**
@@ -51,7 +53,9 @@ class PostController extends Controller
             'title' => Str::slug(request('title')),
         ]);
         $request->validate([
-            'title' => 'required|unique_custom:posts,slug,user_id,' . Auth::id(),
+            'title' => ['required', 
+                Rule::unique('posts', 'slug')->where('posts.user_id', Auth::id())
+            ],
             'body' => 'required|min:1|max:65535'
         ]);
 
@@ -110,13 +114,11 @@ class PostController extends Controller
             'title' => Str::slug(request('title')),
         ]);
         $request->validate([
-            // 'title' => 'required|unique_custom:posts,slug,user_id,' . Auth::id(),
+            'title' => ['required', 
+                Rule::unique('posts', 'slug')->where('posts.user_id', Auth::id())->ignore($post->id)
+            ],
             'body' => 'required|min:1|max:65535'
         ]);
-
-        // if($post->created_at->addMinutes(60) < Carbon::now()) {
-        //     dd('time to edit exceeded');
-        // }
 
         $post->update([
             'title' => request('title'),

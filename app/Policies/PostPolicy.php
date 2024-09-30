@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\Response;
 
 class PostPolicy
@@ -37,7 +38,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $post->user->is($user);
+        return $post->user->is($user) && $post->created_at->addMinutes(60) > Carbon::now();
     }
 
     /**
