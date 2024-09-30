@@ -27,6 +27,8 @@ Route::post('/comments/reply', [CommentController::class, 'storeReply'])->middle
 Route::get('/users/{user:username}', [UserInfoController::class, 'profile']);
 Route::get('/users/{user:username}/posts', [UserInfoController::class, 'posts']);
 Route::get('/users/{user:username}/comments', [UserInfoController::class, 'comments']);
+Route::get('/profile', [RegisteredUserController::class, 'edit'])->middleware('auth');
+Route::post('/profile', [RegisteredUserController::class, 'update'])->middleware('auth');
 
 // POSTS
 Route::get('/{user:username}/{post:slug}', [PostController::class, 'show'])->name('uniquePost');

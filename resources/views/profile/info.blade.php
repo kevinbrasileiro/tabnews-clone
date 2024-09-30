@@ -1,9 +1,19 @@
 <x-layout>
-    <x-page-header>{{ $user->username }}</x-page-header>
+    <x-userinfo-header :user="$user"/>
     <div class="flex space-x-6 border-b border-white/20 mb-6">
         <x-userinfo-nav :user="$user"/>
     </div>
-    <p>Created at: {{$user->created_at}}</p>
+
+    <div class="space-y-4">
+        <p>Member since {{ $user->created_at->diffForHumans() }}</p>
+        <div>
+            <p class="text-sm text-gray-500">Description</p>
+            <div class="border border-gray-700 rounded-lg px-6 py-4">
+                {!! nl2br(htmlspecialchars($user->description, ENT_QUOTES)) !!}
+            </div>
+        </div>
+    </div>
+
     @if ($user->id === Auth()->id())
         <div class="mt-6">
             <form method="POST" action="/logout">
