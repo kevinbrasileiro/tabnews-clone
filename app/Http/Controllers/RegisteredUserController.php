@@ -35,6 +35,7 @@ class RegisteredUserController extends Controller
 
     public function update(Request $request) 
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $request->validate([
@@ -42,7 +43,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'email', 'max:254', Rule::unique('users')->ignore($user->id)],
             'description' => 'max:65535'
         ]);
-        
+
         $user->update([
             'username' => request('username'),
             'email' => request('email'),
