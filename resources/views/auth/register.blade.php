@@ -1,5 +1,5 @@
 <x-layout>
-    <x-forms.form method="POST" action="/register" enctype="multipart/form-data" class="max-w-lg">
+    <x-forms.form method="POST" action="/register" class="max-w-lg">
         <x-page-header>Register</x-page-header>
         <x-forms.input label="Username" name="username" />
         <x-forms.input label="Email" name="email" type="email" />
