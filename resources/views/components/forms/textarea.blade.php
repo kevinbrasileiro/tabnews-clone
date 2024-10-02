@@ -1,4 +1,4 @@
-@props(['label', 'name'])
+@props(['label', 'name', 'value' => old($name)])
 
 @php
     $defaults = [
@@ -9,5 +9,5 @@
 @endphp
 
 <x-forms.field :$label :$name>
-    <textarea {{ $attributes($defaults) }}>{{old($name)}}</textarea>
+    <textarea {{ $attributes($defaults) }}>{{$value}}</textarea>
 </x-forms.field>
