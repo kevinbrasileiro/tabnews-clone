@@ -6,7 +6,7 @@
             <x-forms.button>Send Reset Link</x-forms.button>
         @endif
         @if (session('status'))
-            <p class="text-green-700 mt-1">{{ session('status') }}</p>
+            <p class="text-green-700 mt-1">{{ session('status') }} You may close this window.</p>
         @endif
     </x-forms.form>
 </x-layout>

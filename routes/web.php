@@ -11,6 +11,12 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserInfoController;
 use Illuminate\Support\Facades\Route;
 
+// PASSWORD RESET
+Route::get('/forgot-password', [ResetPasswordController::class, 'show'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [ResetPasswordController::class, 'send'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'edit'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'update'])->middleware('guest')->name('password.update');
+
 // HOME
 Route::get('/', [PostController::class, 'index']);
 Route::get('/recent', [PostController::class, 'recent']);
@@ -53,10 +59,3 @@ Route::middleware('guest')->group(function() {
     Route::post('/login', [SessionController::class, 'store']);
 });
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
-// PASSWORD RESET
-Route::get('/forgot-password', [ResetPasswordController::class, 'show'])->middleware('guest')->name('password.request');
-Route::post('/forgot-password', [ResetPasswordController::class, 'send'])->middleware('guest')->name('password.email');
-
-Route::get('/reset-password/{token}', [ResetPasswordController::class, 'edit'])->middleware('guest')->name('password.reset');
-Route::post('/reset-password', [ResetPasswordController::class, 'update'])->middleware('guest')->name('password.update');

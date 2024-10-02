@@ -9,5 +9,8 @@
             <x-forms.button>Login</x-forms.button>
             <a href="/register" class="hover:underline">Don't have an account?</a>
         </div>
+        @if (session('status'))
+            <p class="text-green-700 mt-1">{{ session('status') }}</p>
+        @endif
     </x-forms.form>
 </x-layout>
