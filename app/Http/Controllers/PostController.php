@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->withCount('comments')->orderBy('relevance', 'desc')->simplePaginate(30);
+        $posts = Post::with('user', 'allComments')->orderBy('relevance', 'desc')->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -29,7 +29,7 @@ class PostController extends Controller
 
     public function recent()
     {
-        $posts = Post::with('user')->withCount('comments')->latest()->simplePaginate(30);
+        $posts = Post::with('user', 'allComments')->latest()->simplePaginate(30);
 
         return view('posts.index', [
             'posts' => $posts,

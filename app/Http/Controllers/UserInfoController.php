@@ -18,7 +18,7 @@ class UserInfoController extends Controller
 
     public function posts(User $user) {
 
-        $posts = Post::with('user')->withCount('comments')->where('user_id', $user->id)->latest()->simplePaginate(30);
+        $posts = Post::with('user', 'allComments')->where('user_id', $user->id)->latest()->simplePaginate(30);
 
         return view('profile.posts', [
             'user' => $user,
