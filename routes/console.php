@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Post;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
@@ -10,11 +10,13 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 // Schedule::call(function () {
-//     Post::chunk(200, function (Collection $posts) {
+//     DB::table('post_interactions')->chunk(200, function (Collection $posts) {
 //         foreach ($posts as $post) {
-//             $post->update([
-//                 'relevance' => $post->calculatePostRelevance(),
-//             ]);
+//             if ($post->created_at->addDays(7) > Carbon::now()) {
+//                 $post->update([
+//                     'relevance' => $post->calculatePostRelevance(),
+//                 ]);
+//             };
 //         }
 //     });
 // })->everyMinute();

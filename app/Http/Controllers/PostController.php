@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\LikePost;
 use App\Models\Post;
+use App\Models\PostInteraction;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -30,7 +31,7 @@ class PostController extends Controller
                 };
             }
         });
-
+        
         $posts = Post::with('user', 'allComments')->orderBy('relevance', 'desc')->simplePaginate(30);
 
         return view('posts.index', [
@@ -96,6 +97,8 @@ class PostController extends Controller
         $downVotes = LikePost::query()->where('type', '-1')->where('post_id', $post->id)->count();
 
         $userHasLiked = LikePost::where('user_id', Auth::id())->where('post_id', $post->id)->first();
+
+        PostInteraction::createInteraction(1, $post->id);
         
         return view('posts.show', [
             'post' => $post,

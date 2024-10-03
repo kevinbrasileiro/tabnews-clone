@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLikePostRequest;
 use App\Models\LikePost;
 use App\Models\Post;
+use App\Models\PostInteraction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,9 @@ class LikePostController extends Controller
                 'user_id' => Auth::id(),
                 'post_id' => request('post'),
             ]);
+            if (request('type') == 1) {
+                PostInteraction::createInteraction(3, request('post'));
+            }
         }
 
         return redirect()->back();

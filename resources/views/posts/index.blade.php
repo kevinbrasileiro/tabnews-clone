@@ -10,6 +10,8 @@
                         <p class="text-sm text-gray-500">{{$post->allComments->count()}} comments</p>
                         <span class="text-sm text-gray-500">/</span>
                         <p class="text-sm text-gray-500">{{$post->created_at->diffForHumans()}}</p>
+                        <span class="text-sm text-gray-500">/</span>
+                        <p class="text-sm text-gray-500">{{$post->relevance}}</p>
                     </div>
                 </li>
             @endforeach

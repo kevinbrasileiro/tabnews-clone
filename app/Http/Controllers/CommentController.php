@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use App\Models\PostInteraction;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -25,6 +26,8 @@ class CommentController extends Controller
             'post_id' => request('post')
         ]);
 
+        PostInteraction::createInteraction(9, request('post'));
+
         return redirect()->back();
     }
 
@@ -40,6 +43,8 @@ class CommentController extends Controller
             'user_id' => Auth::id(),
             'post_id' => request('post')
         ]);
+
+        PostInteraction::createInteraction(9, request('post'));
 
         return redirect()->back();
     }
