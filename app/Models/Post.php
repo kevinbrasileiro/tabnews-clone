@@ -28,4 +28,12 @@ class Post extends Model
     public function likes(): HasMany {
         return $this->hasMany(LikePost::class);
     }
+
+    public function calculatePostRelevance() {
+        $views = PostInteraction::query()->where('post_id', $this->id)->where('type', 1)->count();
+        $likes = PostInteraction::query()->where('post_id', $this->id)->where('type', 3)->count();
+        $comments = PostInteraction::query()->where('post_id', $this->id)->where('type', 9)->count();
+
+        return $views + $likes * 3 + $comments * 9;
+    }
 }

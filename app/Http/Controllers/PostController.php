@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,16 @@ class PostController extends Controller
      */
     public function index()
     {
+        Post::chunk(200, function (Collection $posts) {
+            foreach ($posts as $post) {
+                if ($post->created_at->addDays(7) > Carbon::now()) {
+                    $post->update([
+                        'relevance' => $post->calculatePostRelevance(),
+                    ]);
+                };
+            }
+        });
+
         $posts = Post::with('user', 'allComments')->orderBy('relevance', 'desc')->simplePaginate(30);
 
         return view('posts.index', [
@@ -81,12 +92,11 @@ class PostController extends Controller
      */
     public function show(User $user, Post $post)
     {
-
         $upVotes = LikePost::query()->where('type', '1')->where('post_id', $post->id)->count();
         $downVotes = LikePost::query()->where('type', '-1')->where('post_id', $post->id)->count();
 
         $userHasLiked = LikePost::where('user_id', Auth::id())->where('post_id', $post->id)->first();
-
+        
         return view('posts.show', [
             'post' => $post,
             'comments' => $post->comments,
