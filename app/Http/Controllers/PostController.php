@@ -22,13 +22,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        Post::chunk(200, function (Collection $posts) {
+        Post::query()->where('created_at', '>', Carbon::now()->subDays(7))
+            ->chunk(200, function (Collection $posts) {
             foreach ($posts as $post) {
-                if ($post->created_at->addDays(7) > Carbon::now()) {
-                    $post->update([
-                        'relevance' => $post->calculatePostRelevance(),
-                    ]);
-                };
+                $post->update([
+                    'relevance' => $post->calculatePostRelevance(),
+                ]);
             }
         });
         
@@ -75,7 +74,7 @@ class PostController extends Controller
             'title' => request('title'),
             'slug' => Str::slug(request('title')),
             'body' => request('body'),
-            'relevance' => rand(0, 100), // TODO: figure out how to do this
+            'relevance' => 0,
             'user_id' => Auth::id(),
         ]);
 
